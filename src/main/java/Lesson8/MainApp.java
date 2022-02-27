@@ -4,77 +4,164 @@ public  class MainApp {
 
     public static void main(String[] args) {
 
-        Cat cat01 = new Cat("Барсик");
-        cat01.jump(3);
-        cat01.run(5);
-        Robot robot01 = new Robot("Валли");
-        robot01.run(10);
-        robot01.jump(2);
-        Human human1=new Human("Петр");
-        human1.jump(1);
-        human1.run(10);
+        Cat cat01 = new Cat ("Барсик", 1, 3);
+
+        if (cat01.runAble(2) && cat01.jumpAble(10))
+            System.out.println(cat01.getName() + " прошел дистанцию!");
+        else
+            System.out.println(cat01.getName() + " сошел с дистанции!");
+
+        System.out.println("\n***\n");
+
+        Robot robot01 = new Robot("Валли", 3, 15);
+
+        if (robot01.runAble(2) && robot01.jumpAble(10))
+            System.out.println(robot01.getName() + " прошел дистанцию!");
+        else
+            System.out.println(robot01.getName() + " сошел с дистанции!");
+
+        System.out.println("\n***\n");
+
+        Human human1=new Human("Петр", 10, 15);
+
+        if (human1.runAble(2) && human1.jumpAble(10))
+            System.out.println(robot01.getName() + " прошел дистанцию!");
+        else
+            System.out.println(robot01.getName() + " сошел с дистанции!");
+
 
     }
 }
-
-interface Runnable {
-    void run (int distance);
-    void jump (int distance);
+interface Runner {
+    boolean jumpAble (int distance);
+    boolean runAble (int lenght);
 }
 
-class Robot implements Runnable {
+class Robot implements Runner {
 
     private String name;
+    private int height;
+    private int lenght;
 
-    public Robot(String name) {
+    public Robot(String name, int height, int lenght) {
+        this.name = name;
+        this.height = height;
+        this.lenght = lenght;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public void run(int distance) {
-        System.out.printf ("%s пробежал %d километров.\n", name, distance);
+    public boolean jumpAble(int distance) {
+        if (distance <= this.height) {
+            System.out.println(name + " перепрыгнул препятствие высотой " + distance + " метров!");
+            return true;
+        } else {
+            System.out.println(name + " не смог перепрыгнуть препятствие высотой " + distance + " метров!");
+            return false;
+        }
     }
 
     @Override
-    public void jump(int distance) {
-        System.out.printf("%s перепрыгнул %d метров! \n", name, distance);
+    public boolean runAble(int distance) {
+        if (distance <= this.lenght) {
+            System.out.println(name + " пробежал дистанцию " + distance + " метров!");
+            return true;
+        } else {
+            System.out.println(name + " не смог пробежать " + distance + " метров!");
+            return false;
+        }
     }
 }
 
-class Human implements Runnable {
+    class Human implements Runner {
 
     private String name;
+    private int height;
+    private int lenght;
 
-    public Human(String name) {
+    public Human(String name, int height, int lenght) {
         this.name = name;
+        this.height = height;
+        this.lenght = lenght;
     }
 
-    @Override
-    public void run(int distance) {
-        System.out.printf("%s пробежал %d километров.\n", name, distance);
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean jumpAble(int distance) {
+            if (distance <= this.height) {
+                System.out.println(name + " перепрыгнул препятствие высотой " + distance + " метров!");
+                return true;
+            } else {
+                System.out.println(name + " не смог перепрыгнуть препятствие высотой " + distance + " метров");
+                return false;
+            }
+        }
+
+        @Override
+        public boolean runAble(int distance) {
+            if (distance <= this.lenght) {
+                System.out.println(name + " пробежал дистанцию " + distance + " метров");
+                return true;
+            } else {
+                System.out.println(name + " не смог пробежать " + distance + " метров");
+                return false;
+            }
+        }
     }
 
-    @Override
-    public void jump(int distance) {
-        System.out.printf("%s перепрыгнул %d метров! \n", name, distance);
+    class Cat implements Runner {
+
+        private String name;
+        private int height;
+        private int lenght;
+
+        public Cat (String name, int height, int lenght) {
+            this.name = name;
+            this.height = height;
+            this.lenght = lenght;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean jumpAble(int distance) {
+            if (distance <= this.height) {
+                System.out.println(name + " перепрыгнул препятствие высотой " + distance + " метров!");
+                return true;
+            } else {
+                System.out.println(name + " не смог перепрыгнуть препятствие высотой " + distance + " метров!");
+                return false;
+            }
+        }
+
+        @Override
+        public boolean runAble(int distance) {
+            if (distance <= this.lenght) {
+                System.out.println(name + " пробежал дистанцию " + distance + " метров!");
+                return true;
+            } else {
+                System.out.println(name + " не смог пробежать " + distance + " метров!");
+                return false;
+            }
+        }
     }
-}
-
-class Cat implements Runnable {
-
-    private String name;
-
-    public Cat(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public void run(int distance) {
-        System.out.printf("%s пробежал %d километров.\n", name, distance);
-    }
-
-    @Override
-    public void jump(int distance) {
-        System.out.printf("%s перепрыгнул %d метров! \n", name, distance);
-    }
-}
