@@ -1,52 +1,55 @@
 package Lesson8;
 
+import java.util.Random;
+
 public  class MainApp {
+
+    public static Random random = new Random();
 
     public static void main(String[] args) {
 
-        Cat cat01 = new Cat ("Барсик", 1, 3);
+       /* int length = random.nextInt(10)+1;
+        int heigth = random.nextInt(10)+1;*/
 
-        if (cat01.runAble(2) && cat01.jumpAble(10))
-            System.out.println(cat01.getName() + " прошел дистанцию!");
-        else
-            System.out.println(cat01.getName() + " сошел с дистанции!");
+        Runner cat01 = new Cat ("Барсик", random.nextInt(10)+1, random.nextInt(10)+1);
+        Runner robot01 = new Robot("Валли", random.nextInt(10)+1, random.nextInt(10)+1);
+        Runner human1=new Human("Петр", random.nextInt(10)+1, random.nextInt(10)+1);
 
-        System.out.println("\n***\n");
+        Runner [] rivals =new Runner[3];
+        rivals [0] = robot01;
+        rivals [1] = cat01;
+        rivals [2] = human1;
 
-        Robot robot01 = new Robot("Валли", 3, 15);
+        int distanceHeigth = random.nextInt(10)+1;
+        int distanceLength = random.nextInt(10)+1;
 
-        if (robot01.runAble(2) && robot01.jumpAble(10))
-            System.out.println(robot01.getName() + " прошел дистанцию!");
-        else
-            System.out.println(robot01.getName() + " сошел с дистанции!");
+        for (Runner a: rivals) {
+            System.out.println(a);
+            if (a.jumpAble(distanceHeigth) && a.runAble(distanceLength)){
 
-        System.out.println("\n***\n");
-
-        Human human1=new Human("Петр", 10, 15);
-
-        if (human1.runAble(2) && human1.jumpAble(10))
-            System.out.println(robot01.getName() + " прошел дистанцию!");
-        else
-            System.out.println(robot01.getName() + " сошел с дистанции!");
-
-
+                System.out.println( " прошел дистанцию!\n ***\n");}
+            else
+                System.out.println(" сошел с дистанции!\n ***\n");
+        }
     }
 }
+
 interface Runner {
+
     boolean jumpAble (int distance);
-    boolean runAble (int lenght);
+    boolean runAble (int length);
 }
 
 class Robot implements Runner {
 
     private String name;
-    private int height;
-    private int lenght;
+    private int heigth;
+    private int length;
 
-    public Robot(String name, int height, int lenght) {
+    public Robot(String name, int heigth, int length) {
         this.name = name;
-        this.height = height;
-        this.lenght = lenght;
+        this.heigth = heigth;
+        this.length = length;
     }
 
     public String getName() {
@@ -59,7 +62,7 @@ class Robot implements Runner {
 
     @Override
     public boolean jumpAble(int distance) {
-        if (distance <= this.height) {
+        if (distance <= this.heigth) {
             System.out.println(name + " перепрыгнул препятствие высотой " + distance + " метров!");
             return true;
         } else {
@@ -70,7 +73,7 @@ class Robot implements Runner {
 
     @Override
     public boolean runAble(int distance) {
-        if (distance <= this.lenght) {
+        if (distance <= this.length) {
             System.out.println(name + " пробежал дистанцию " + distance + " метров!");
             return true;
         } else {
@@ -78,19 +81,24 @@ class Robot implements Runner {
             return false;
         }
     }
+
+    public String toString() {
+        return String.format("%s, имеет способность перепрыгивать препятствие высотой %d метров, " +
+                "и пробегать трассы длиной %d километров \n", name, heigth, length );
+    }
 }
 
     class Human implements Runner {
 
-    private String name;
-    private int height;
-    private int lenght;
+        private String name;
+        private int heigth;
+        private int length;
 
-    public Human(String name, int height, int lenght) {
-        this.name = name;
-        this.height = height;
-        this.lenght = lenght;
-    }
+        public Human(String name, int heigth, int length) {
+            this.name = name;
+            this.heigth = heigth;
+            this.length = length;
+        }
 
         public String getName() {
             return name;
@@ -102,7 +110,7 @@ class Robot implements Runner {
 
         @Override
         public boolean jumpAble(int distance) {
-            if (distance <= this.height) {
+            if (distance <= this.heigth) {
                 System.out.println(name + " перепрыгнул препятствие высотой " + distance + " метров!");
                 return true;
             } else {
@@ -113,7 +121,7 @@ class Robot implements Runner {
 
         @Override
         public boolean runAble(int distance) {
-            if (distance <= this.lenght) {
+            if (distance <= this.length) {
                 System.out.println(name + " пробежал дистанцию " + distance + " метров");
                 return true;
             } else {
@@ -121,18 +129,23 @@ class Robot implements Runner {
                 return false;
             }
         }
+
+        public String toString() {
+            return String.format("%s, имеет способность перепрыгивать препятствие высотой %d метров, " +
+                    "и пробегать трассы длиной %d километров!\n", name, heigth, length);
+        }
     }
 
     class Cat implements Runner {
 
         private String name;
-        private int height;
-        private int lenght;
+        private int heigth;
+        private int length;
 
-        public Cat (String name, int height, int lenght) {
+        public Cat(String name, int heigth, int length) {
             this.name = name;
-            this.height = height;
-            this.lenght = lenght;
+            this.heigth = heigth;
+            this.length = length;
         }
 
         public String getName() {
@@ -145,7 +158,7 @@ class Robot implements Runner {
 
         @Override
         public boolean jumpAble(int distance) {
-            if (distance <= this.height) {
+            if (distance <= this.heigth) {
                 System.out.println(name + " перепрыгнул препятствие высотой " + distance + " метров!");
                 return true;
             } else {
@@ -156,12 +169,17 @@ class Robot implements Runner {
 
         @Override
         public boolean runAble(int distance) {
-            if (distance <= this.lenght) {
+            if (distance <= this.length) {
                 System.out.println(name + " пробежал дистанцию " + distance + " метров!");
                 return true;
             } else {
                 System.out.println(name + " не смог пробежать " + distance + " метров!");
                 return false;
             }
+        }
+
+        public String toString() {
+            return String.format("%s, имеет способность перепрыгивать препятствие высотой %d метров, " +
+                    "и пробегать трассы длиной %d километров! \n", name, heigth, length);
         }
     }
